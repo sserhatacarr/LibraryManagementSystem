@@ -1,58 +1,38 @@
-![img.png](img/img.png)
+# Library Management System
 
-Bir kütüphane yönetim sistemi tasarlamanı istiyoruz. Bu kütüphane sisteminde aşağıdaki entity’ler bulunmaktadır.
+This project is a library management system implemented in Java using the Maven build tool. The system manages various entities such as books, authors, categories, publishers, and book borrowings.
 
-## Entity'ler
+## Entities
 
-### Kitap (Book)
+The system manages the following entities:
 
-- id (Benzersiz kitap kimliği)
-- name(Kitap adı)
-- publicationYear (Yayın yılı)
-- stock (Kütüphanedeki miktarı)
+- **Book:** Each book has a unique ID, name, publication year, and stock amount.
+- **Author:** Each author has a unique ID, name, birth date, and country.
+- **Category:** Each category has a unique ID, name, and description.
+- **Publisher:** Each publisher has a unique ID, name, establishment year, and address.
+- **Book Borrowing:** Each book borrowing has a unique ID, borrower name, borrowing date, and return date.
 
-### Yazar (Author)
+## Database Tables
 
-- id (Benzersiz yazar kimliği)
-- name (Yazarın adı)
-- birthDate (Yazarın doğum yılı)
-- country (Yazarın ülkesi)
+Here is the image of the database tables:
 
-### Kategoriler (Category)
+![Database Tables](img/tables.png)
 
-- id (Benzersiz kategori kimliği)
-- name (Kategori adı)
-- description (Kategori tanımı)
+## Diagram
 
-### Yayınevi (Publisher)
+Here is the diagram related to the project:
 
-- id (Benzersiz kimliği)
-- name (Yayınevi ismi)
-- establishmentYear (Kuruluş yılı)
-- address (Yayınevi adresi)
+![Diagram](img/diagram.png)
 
-### Kitap Ödünç Alma (BookBorrowing)
+## Relationships
 
-- id (Benzersiz kimliği)
-- borrowerName (Kitap ödünç alan kişi adı soyadı)
-- borrowingDate (Kitap ödünç alma tarihi)
-- returnDate (Kitabın teslim edildiği tarih, ilk kayıtta null olacak. Kitap teslim edilince tarih güncellenecek)
+The entities have the following relationships:
 
-## İlişkiler
+- A book can have one author, and an author can have multiple books (One-to-Many).
+- A category can have multiple books, and a book can belong to multiple categories (Many-to-Many).
+- A book can have one publisher, and a publisher can have multiple books (One-to-Many).
+- A book can have multiple borrowings, but each borrowing can only belong to one book (One-to-Many).
 
-- Bir kitabın bir yazarı olabilir, bir yazarın birden fazla kitabı olabilir. (One-to-Many ilişkisi).
-- Bir kategori birden fazla kitaba sahip olabilirken, bir kitap birden fazla kategoriye ait olabilir. (Many-to-Many ilişkisi).
-- Bir kitabın bir yayınevi olabilir, bir yayınevinin birden fazla kitabı olabilir. (One-to-Many ilişkisi).
-- Bir kitap birden fazla ödünç alma işlemine sahip olabilir, ancak her ödünç alma işlemi yalnızca bir kitaba ait olabilir. (One-to-Many ilişkisi).
+## Conclusion
 
-## Ödev
-
-1. Maven java projesi açıp dependency’leri tanımlayın.
-2. Yukarıda belirtilen entity (varlık) sınıflarını ve bunların arasındaki ilişkileri kodunuza yazın.
-3. Gerekli anotasyonları (@Entity, @Table, @Id, @OneToMany, @ManyToOne, @ManyToMany) yazın.
-4. Gerekli Fetch ve Cascade anotasyonlarını yazın.
-5. Entity'lerde temel değişkenler belirtilmiş olup entity'ler arası ilişkilere göre sizler değişken eklemelisiniz.
-6. Veri tabanı olarak PostgreSQL kullanın.
-7. Readme dosyasına veri tabanında oluşan her tablonun ekran görüntüsünü ekleyin.
-
-Başarılar.
+This project provides a comprehensive system for managing a library's books, authors, categories, publishers, and borrowings. It demonstrates the use of various JPA annotations to map entities to a PostgreSQL database and manage their relationships.

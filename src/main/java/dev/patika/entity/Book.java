@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "books")
 @Getter
@@ -33,12 +36,24 @@ public class Book {
     @OneToMany(mappedBy = "book", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private java.util.List<BookBorrowing> bookBorrowingList;
 
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "book_category", // yeni tablo adı
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private java.util.List<Category> categoryList;
+
+    public List<Category> getCategoryList() {
+        if (categoryList == null) {
+            categoryList = new ArrayList<>();
+        }
+        return categoryList;
+    }
+
+    public void setCategoryList(List<Category> categoryList) {
+        this.categoryList = categoryList;
+    }
 
 
 }

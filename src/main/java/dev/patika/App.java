@@ -20,6 +20,7 @@ public class App {
         author.setName("J. R. R. Tolkien");
         author.setAddress("United Kingdom");
         author.setCountry("United Kingdom");
+        author.setBirthDate(java.time.LocalDate.of(1892, 1, 3));
         entityManager.persist(author);
 
         Publisher publisher = new Publisher();
@@ -35,6 +36,12 @@ public class App {
         book.setAuthor(author);
         book.setPublisher(publisher);
         entityManager.persist(book);
+        entityManager.flush(); // This ensures that the book is immediately persisted and its ID is generated
+
+        if (book.getId() == 0) {
+            System.out.println("Book ID is not generated");
+            return;
+        }
 
         Category category = new Category();
         category.setName("Fantasy");
@@ -48,13 +55,27 @@ public class App {
         bookBorrowing.setBook(book);
         entityManager.persist(bookBorrowing);
 
-     /*   Book bookcategory = entityManager.find(Book.class, book.getId());
+        Book bookcategory = entityManager.find(Book.class, book.getId());
+
+        if (bookcategory == null) {
+            System.out.println("No book found with the given ID");
+            return;
+        }
+
         List<Category> categoryList = bookcategory.getCategoryList();
+
+        if (categoryList == null) {
+            System.out.println("Category list is null");
+            return;
+        }
+
         categoryList.add(category);
         bookcategory.setCategoryList(categoryList);
-*/
+        entityManager.merge(bookcategory);
 
         transaction.commit();
+        entityManager.close();
+        entityManagerFactory.close();
 
     }
 
